@@ -18,14 +18,35 @@ export class ParcsService {
         return this.parcsRepository.findOne(id)
     }
 
-    quartier(): Promise<Parc[]> {
+    getType(): Promise<Parc[]> {
         return this.parcsRepository
             .createQueryBuilder("parc")
             .select([
-                "parc.sous_type AS sous_type",
-                "COUNT(parc.sous_type) AS nb"
+                "parc.type",
+                "COUNT(parc.type) AS nb"
             ])
-            .groupBy("parc.sous_type")
+            .groupBy("parc.type")
+            .orderBy("parc.type")
+            .getRawMany();
+    }
+
+    getQuartier(): Promise<Parc[]> {
+        return this.parcsRepository
+            .createQueryBuilder("parc")
+            .select([
+                "parc.quartier",
+                "COUNT(parc.quartier) AS nb"
+            ])
+            .groupBy("parc.quartier")
+            .orderBy("parc.quartier")
+            .getRawMany();
+    }
+
+    getSearch(param: string): Promise<Parc[]> {
+        return this.parcsRepository
+            .createQueryBuilder("parc")
+            .where("parc.type = :type", { type: param })
+            .orWhere("parc.quartier = :quartier", { quartier: param })
             .getRawMany();
     }
 }

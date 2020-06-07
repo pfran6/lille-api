@@ -6,7 +6,7 @@ import { ParcsModule } from './parcs/parcs.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'raspberry',
+      host: 'localhost',
       port: 3306,
       username: 'francois',
       password: 'Admin12345',

@@ -16,8 +16,18 @@ export class ParcsController {
         return this.parcsServcice.findOne(id);
     }
 
-    @Get('b/quartier')
-    quartier(): Promise<Parc[]> {
-        return this.parcsServcice.quartier();
+    @Get('b/gettype')
+    getType(): Promise<Parc[]> {
+        return this.parcsServcice.getType();
+    }
+
+    @Get('b/getquartier')
+    getQuartier(): Promise<Parc[]> {
+        return this.parcsServcice.getQuartier();
+    }
+
+    @Get('c/:param')
+    getSearch(@Param('param') param: string): Promise<Parc[]> {
+        return this.parcsServcice.getSearch(param);
     }
 }
